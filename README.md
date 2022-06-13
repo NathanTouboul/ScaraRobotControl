@@ -1,7 +1,7 @@
 # Presentation Project
 
-We study here the control of a 3-axis SCARA robot in this project. In a concern of simplification, we will only be interested in the robot's first two degrees of freedom.
-These degrees of mobility are associated with two pivot-type joints located in a horizontal plane. The joint coordinates of the robot are $\theta_1$  and $\theta_2$ . These coordinates are subject to constraints (mechanical stops)
+Here is the study of the control of a 3-axis SCARA robot in this project. In a concern of simplification, we will only be interested in the robot's first two degrees of freedom.
+These degrees of mobility are associated with two pivot-type joints located in a horizontal plane. The joint coordinates of the robot are $\theta_1$  and $\theta_2$. These coordinates are subject to constraints (mechanical stops)
 The end effector is identified in space by its Cartesian coordinates. Restrictions on the joint coordinates induce a restricted domain reachable for the effector. In the Cartesian coordinate system, this domain is called the workspace or the operational space of the robot. The command
 of this robot is realized here by two DC motors, driven independently, coupled to reducers and amplifiers current. The main features of this robot are then given below:
 
@@ -10,9 +10,50 @@ of this robot is realized here by two DC motors, driven independently, coupled t
 - Two-stage ratio reduction $n_1 = n_2 = 100$
 - Mechanical stops used throughout the project: $\theta_1$ between 0 and 270° and $\theta_2$ between -90° and 90°
 
+# Dynamic Control
+Here we compare several control laws using the dynamic model of our robot on Simulink. To do this, we use the following direct dynamic model. Of course, without correction, the joint variables tend to diverge since we only add in constant torque input.
+$$\ddot{q} = M(q)^{-1}(\Gamma-H(q,\dot{q}))$$
+<p align=center>
+<img src=images/ModeleDynamiqueSimulink.JPG width=400>
+</p>
+<p align=center>
+Dynamic Model
+</p>
+
+## Proportional-Derivative (PD) Control
+The proportional corrector makes it possible to stabilize the system, increase the speed, and reduce the error. A derivative corrector is added to this to reduce the oscillations. The main criterion of speed is limited by the electromechanical time constant of the robot motors of 11.5 ms. We give as input the position as well as the desired speeds, using:
+
+$$ \Gamma(t)=K_P(q^s(t)-q(t))+K_D(\dot{q}^s(t)-\dot{q}(t)) $$
+<p align=center>
+<img src=images/CommandePDSimulink.jpg width=400>
+</p>
+<p align=center>
+Proportional-Derivative (PD) Control
+</p>
+
+## Linearized Control
+
+We want to compare the Proportional/Derivative control to another nonlinear control law this time: a linearized control. This command consists in imposing a dynamic on the error e (error with respect to a trajectory). This dynamic is given by the equation:
+
+$$     \ddot{e} = [M(q)]^{-1}(\Gamma - H(q,\dot{q}))-\ddot{q}_{ref}
+    \hspace{5mm} and \hspace{5mm} \ddot{e} = S\dot{e}-Pe $$
+
+Inverting this equation to find the control input:
+
+$$     \Gamma = [M(q)](\ddot{e} + \ddot{q}_{ref}) + H(q,\dot{q})
+$$
+We can thus adjust $\ddot{e}$ in order to ensure stability and trajectory tracking performance by playing on the S and P gains. To simplify the representation, it is useful to take an acceleration setpoint from the variables zero joints.
+<p align=center>
+<img src=images/ComandeLinearisante.JPG width=400>
+</p>
+<p align=center>
+Linearized Control
+</p>
+
+
 # Mathematics Model
 ## Geometric and kinematic models
-We express the direct geometric model of the robot using the Denavit-Hartenberg parameter method.
+The direct geometric model of the robot is expressed through the Denavit-Hartenberg parameter method.
 
 $$
 \left\{
@@ -77,7 +118,7 @@ Therefore, we have singularities with the values of $\theta_2 = 0$ and $\pi$ and
 We use the formalism of Lagrange, which is based on the calculation of the energy, to determine this model.
 
 <p align=center>
-<img src=images/ModeleDynamique.jpg width=1000>
+<img src=images\ModeleDynamique.JPG width=500>
 </p>
 <p align=center>
 Operational Space of the end effector
