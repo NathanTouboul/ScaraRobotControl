@@ -25,7 +25,7 @@ The proportional corrector makes it possible to stabilize the system, increase t
 
 $$ \Gamma(t)=K_P(q^s(t)-q(t))+K_D(\dot{q}^s(t)-\dot{q}(t)) $$
 <p align=center>
-<img src=images/CommandePDSimulink.jpg width=400>
+<img src=images\CommandePDSimulink.JPG width=400>
 </p>
 <p align=center>
 Proportional-Derivative (PD) Control
@@ -112,7 +112,7 @@ $$
 det(J) = 0 \xrightarrow[]{} L_1L_2sin(\theta_2)=0 \xrightarrow[]{} \theta_2 = 0[k\pi], k \in \mathbb{Z}  
 $$
 
-Therefore, we have singularities with the values of $\theta_2 = 0$ and $\pi$ and their multiples. This means that if during a trajectory $\theta_2$ approaches these values, the joint speed will tend towards infinity (should obviously be avoided). Using those geometric and kinematic models, we can easily perform trajectory tracking, avoiding singular points.
+Therefore, we have singularities with the values of $\theta_2 = 0$ and $\pi$ and their multiples. This means that if during a trajectory $\theta_2$ approaches these values, the joint speed will tend towards infinity (which should be avoided). Using those geometric and kinematic models, we can easily perform trajectory tracking, avoiding singular points.
 
 ## Dynamic Model
 We use the formalism of Lagrange, which is based on the calculation of the energy, to determine this model.
@@ -148,12 +148,12 @@ $$
 
 - Launch the visualization_trame.m script for the first time to create the variables in the workspace
 (You might  have errors at the end of the program because the simulation files are not yet created)
-- Make run section of question 12
-- Open the Simulink model and launch the simulation and visualize the results of question 12  in the scope
-- Make run section of question 14
-- Then, run section of question 15, open the Simulink qu15 model and run the simulation
-- Run section question 15b to visualize the trajectory in a circle
-- Change the value of mc and run section question 16
+- Make run section 12
+- Open the Simulink model and launch the simulation and visualize the results 12  in the scope
+- Make run section 14
+- Then run section 15, open the Simulink qu15 model and run the simulation
+- Run section 15b to visualize the trajectory in a circle
+- Change the value of mc and run section 16
 - Return to the main Simulink and launch the simulation to perform the calculation with mc different from 0
-- Run section question 16b to visualize trajectories with the addition of mass
-- Run question section 17 to visualize the effect of disturbances
+- Run section 16b to visualize trajectories with the addition of mass
+- Run section 17 to visualize the effect of disturbances
